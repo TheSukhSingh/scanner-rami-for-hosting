@@ -1,0 +1,54 @@
+{% extends 'main.html' %}
+
+{% block title %}404 Not Found{% endblock %}
+
+{% block head_extra %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/404.css') }}">
+    {% endblock %}
+
+{% block content %}
+
+    <main>
+        <div class="error-container">
+            <div class="error-grid"></div>
+            <div class="scan-line"></div>
+            
+            <div class="error-visual">
+                <i class="fas fa-shield-alt broken-shield"></i>
+                <div class="shield-overlay"></div>
+            </div>
+            
+            <div class="error-code">404</div>
+            <h1 class="error-title">Page Not Found</h1>
+            <p class="error-message">
+                The resource you're looking for might have been removed, had its name changed,
+                or is temporarily unavailable. Please check the URL and try again.
+            </p>
+            
+            <div class="error-actions">
+                <a href="index.html" class="error-button home-btn">
+                    <i class="fas fa-home"></i> Back to Home
+                </a>
+                <a href="dashboard.html" class="error-button search-btn">
+                    <i class="fas fa-search"></i> Search
+                </a>
+            </div>
+            
+            <div class="suggestions">
+                <h3>You might be looking for:</h3>
+                <ul>
+                    <li><a href="features.html">Security Features</a> - Explore our threat protection tools</li>
+                    <li><a href="dashboard.html">Dashboard</a> - Access your security scans</li>
+                    <li><a href="blog-list.html">Security Blog</a> - Latest cybersecurity insights</li>
+                    <li><a href="report.html">Threat Scanner</a> - Check for potential threats</li>
+                </ul>
+            </div>
+            
+            <div class="error-footer">
+                Error Code: 404-PAGE-NOT-FOUND
+            </div>
+        </div>
+    </main>
+    {% endblock %}
+

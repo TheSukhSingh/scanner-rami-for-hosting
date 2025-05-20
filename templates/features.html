@@ -1,0 +1,102 @@
+
+{% extends 'main.html' %}
+
+{% block title %}Features{% endblock %}
+
+{% block head_extra %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/features.css') }}">
+{% endblock %}
+
+{% block content %}
+<section class="features-hero">
+  <div class="features-hero-content">
+    <h1>Advanced Cybersecurity Features</h1>
+    <p>Explore our suite of threat detection and protection tools.</p>
+  </div>
+</section>
+
+<section class="feature-showcase">
+  <div class="feature-details">
+    {% for feat in [
+      ('ip-scan','IP Scan','Our advanced IP scanning…',['Real-time IP reputation','Geo analysis','Malicious endpoint detection']),
+      ('url-scanner','URL Scanner','Analyze web addresses…',['SSL validation','Phishing detection','Content safety']),
+      ('image-analyzer','Image Analyzer','Detect hidden data in images…',['Steganography detection','Metadata analysis','Anomaly identification']),
+      ('integrity-checker','Integrity Checker','Ensure file authenticity…',['MD5/SHA-256','Digital signatures','Change monitoring'])
+    ] %}
+    <div class="feature-info{% if loop.first %} active{% endif %}" data-feature="{{ feat[0] }}">
+      <h2>{{ feat[1] }}</h2>
+      <p>{{ feat[2] }}</p>
+      <ul class="feature-list">
+        {% for item in feat[3] %}<li>{{ item }}</li>{% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="feature-usage-examples">
+    {% for feat in ['ip-scan','url-scanner','image-analyzer','integrity-checker'] %}
+    <div class="usage-example{% if loop.first %} active{% endif %}" data-feature="{{ feat }}">
+      <div class="usage-card">
+        <div class="usage-header">
+          <h3>How {{ 'IP Scan' if feat=='ip-scan' else 'URL Scanner' if feat=='url-scanner' else 'Image Analyzer' if feat=='image-analyzer' else 'Integrity Checker' }} Works</h3>
+          <div class="usage-icon">
+            <i class="fas fa-{{ 'globe' if feat=='ip-scan' else 'link' if feat=='url-scanner' else 'image' if feat=='image-analyzer' else 'shield-alt' }}"></i>
+          </div>
+        </div>
+        <div class="usage-steps">
+          <div class="step">
+            <span class="step-number">1</span>
+            <p>{{ 'Enter IP address' if feat=='ip-scan' else 'Submit URL for analysis' if feat=='url-scanner' else 'Upload image file' if feat=='image-analyzer' else 'Select file to verify' }}</p>
+          </div>
+          <div class="step">
+            <span class="step-number">2</span>
+            <p>{{ 'Automatic threat detection' if feat=='ip-scan' else 'Deep content inspection' if feat=='url-scanner' else 'AI analysis of pixels and metadata' if feat=='image-analyzer' else 'Calculate checksum and verify' }}</p>
+          </div>
+          <div class="step">
+            <span class="step-number">3</span>
+            <p>{{ 'View detailed threat report' if feat=='ip-scan' else 'Get security rating and details' if feat=='url-scanner' else 'Receive hidden data analysis' if feat=='image-analyzer' else 'Compare with stored signatures' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="feature-navigation">
+  {% for feat,icon,label in [
+    ('ip-scan','globe','IP Scan'),
+    ('url-scanner','link','URL Scanner'),
+    ('image-analyzer','image','Image Analyzer'),
+    ('integrity-checker','shield-alt','Integrity Checker')
+  ] %}
+  <button class="feature-nav-btn{% if loop.first %} active{% endif %}" data-target="{{ feat }}">
+    <i class="fas fa-{{ icon }}"></i><span>{{ label }}</span>
+  </button>
+  {% endfor %}
+</section>
+
+<section class="technical-specs">
+  <h2>Technical Specifications</h2>
+  <div class="specs-container">
+    {% for icon,title,points in [
+      ('tachometer-alt','Performance',['1000 URLs/min','<3s image scans','Realtime IP assessment']),
+      ('database','Database',['10M threats','Daily updates','Global feeds']),
+      ('brain','AI Capabilities',['Deep learning','Pattern recognition','Anomaly detection']),
+      ('lock','Security',['End-to-end encryption','No data retention','GDPR compliant'])
+    ] %}
+    <div class="spec-card">
+      <i class="fas fa-{{ icon }}"></i>
+      <h3>{{ title }}</h3>
+      <ul>{% for pt in points %}<li>{{ pt }}</li>{% endfor %}</ul>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/features.js') }}"></script>
+{% endblock %}

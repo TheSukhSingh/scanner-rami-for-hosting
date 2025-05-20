@@ -1,0 +1,180 @@
+{% extends 'main.html' %}
+
+{% block title %}500 Server Error{% endblock %}
+{% block head_extra %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/500.css') }}">
+    {% endblock %}
+
+{% block content %}
+
+{% block content %}
+
+    <main>
+        <div class="error-container">
+            <div class="error-code-binary" id="binary-background"></div>
+            
+            <div class="error-visual">
+                <i class="fas fa-server server-icon"></i>
+                <i class="fas fa-cog gear-animation"></i>
+                <div class="error-glow"></div>
+            </div>
+            
+            <div class="error-code">500</div>
+            <h1 class="error-title">Internal Server Error</h1>
+            <p class="error-message">
+                Something went wrong on our end. Our team has been notified and is working to fix the issue.
+                Please try again in a few moments.
+            </p>
+            
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-title">system.log</div>
+                    <div class="terminal-controls">
+                        <div class="terminal-circle circle-red"></div>
+                        <div class="terminal-circle circle-yellow"></div>
+                        <div class="terminal-circle circle-green"></div>
+                    </div>
+                </div>
+                <div class="terminal-content">
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">$</span>
+                        <span class="terminal-command">system.status</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="terminal-error">Error: Internal server exception detected (Code: 500)</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="terminal-info">Info: Error report submitted to admin</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="terminal-info">Info: Automatic recovery in progress...</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">$</span>
+                        <span class="terminal-command">_</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="error-actions">
+                <a href="index.html" class="error-button home-btn">
+                    <i class="fas fa-home"></i> Back to Home
+                </a>
+                <button onclick="window.location.reload()" class="error-button refresh-btn">
+                    <i class="fas fa-sync-alt"></i> Refresh Page
+                </button>
+            </div>
+            
+            <div class="help-section">
+                <h3>Need Help?</h3>
+                <p>
+                    If the problem persists, please contact our support team
+                    with the error code mentioned below:
+                </p>
+                <div class="contact-options">
+                    <a href="#" class="contact-option">
+                        <i class="fas fa-envelope"></i>
+                        Email Support
+                    </a>
+                    <a href="#" class="contact-option">
+                        <i class="fas fa-comment-dots"></i>
+                        Live Chat
+                    </a>
+                </div>
+            </div>
+            
+            <div class="error-footer">
+                Error Code: 500-INTERNAL-SERVER-ERROR
+            </div>
+        </div>
+    </main>
+
+  {% endblock %}
+
+  {% block scripts %}
+    <script>
+        // Create binary code background
+        document.addEventListener('DOMContentLoaded', function() {
+            createBinaryBackground();
+            animateTerminal();
+        });
+        
+        function createBinaryBackground() {
+            const container = document.getElementById('binary-background');
+            const containerWidth = container.offsetWidth;
+            const containerHeight = container.offsetHeight;
+            
+            // Create binary text elements
+            for (let i = 0; i < 50; i++) {
+                const binaryText = document.createElement('div');
+                binaryText.className = 'binary-text';
+                
+                // Generate random binary string
+                let binary = '';
+                const length = Math.floor(Math.random() * 8) + 3; // 3-10 characters
+                for (let j = 0; j < length; j++) {
+                    binary += Math.round(Math.random());
+                }
+                
+                binaryText.textContent = binary;
+                
+                // Random position
+                const left = Math.random() * containerWidth;
+                const top = Math.random() * containerHeight;
+                binaryText.style.left = `${left}px`;
+                binaryText.style.top = `${top}px`;
+                
+                // Random opacity
+                binaryText.style.opacity = Math.random() * 0.5 + 0.5;
+                
+                container.appendChild(binaryText);
+                
+                // Create floating animation with a timeout
+                setTimeout(() => {
+                    binaryText.style.transition = 'top 15s linear';
+                    binaryText.style.top = `${top - 200}px`;
+                }, Math.random() * 1000);
+            }
+        }
+        
+        function animateTerminal() {
+            const lines = document.querySelectorAll('.terminal-line');
+            
+            // Hide all lines initially except the first
+            for (let i = 1; i < lines.length; i++) {
+                lines[i].style.opacity = '0';
+            }
+            
+            // Animate lines appearing
+            setTimeout(() => {
+                lines[1].style.transition = 'opacity 0.5s ease';
+                lines[1].style.opacity = '1';
+                
+                setTimeout(() => {
+                    lines[2].style.transition = 'opacity 0.5s ease';
+                    lines[2].style.opacity = '1';
+                    
+                    setTimeout(() => {
+                        lines[3].style.transition = 'opacity 0.5s ease';
+                        lines[3].style.opacity = '1';
+                        
+                        setTimeout(() => {
+                            lines[4].style.transition = 'opacity 0.5s ease';
+                            lines[4].style.opacity = '1';
+                            
+                            // Animate blinking cursor
+                            setInterval(() => {
+                                const cursor = lines[4].querySelector('.terminal-command');
+                                cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
+                            }, 500);
+                        }, 800);
+                    }, 800);
+                }, 800);
+            }, 800);
+        }
+    </script>
+
+    {% endblock %}
+</body>
+</html>

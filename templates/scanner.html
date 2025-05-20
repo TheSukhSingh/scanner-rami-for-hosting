@@ -1,0 +1,146 @@
+{% extends 'main.html' %}
+
+{% block title %}Threat Detection{% endblock %}
+
+{% block head_extra %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="outer-container">
+  <div class="container">
+    <h1 class="branding">Threat Detection System</h1>
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <button class="tab-button active" onclick="openTab('ipScan')">IP Scan</button>
+      <button class="tab-button" onclick="openTab('urlScan')">URL Scan</button>
+      <button class="tab-button" onclick="openTab('imageScan')">Image Scan</button>
+      <button class="tab-button" onclick="openTab('pwGen')">Password Generator</button>
+    <button class="tab-button" onclick="openTab('integrityCheck')">Integrity Checker</button>
+    </div>
+
+    <!-- IP Scan Tab -->
+    <div id="ipScan" class="tab-content">
+      <h2>🚨 Suspicious IP Address Checker</h2>
+
+      <!-- single-text or CSV -->
+      <input type="text" id="ipInput" placeholder="Enter IP(s), separated by commas">
+      <div id="ipCsvWrapper" style="margin-top:10px;">
+        <button type="button" onclick="triggerIPFile()">📂 Upload CSV</button>
+        <input type="file" id="ipCsv" accept=".csv" style="display:none;">
+        <span id="ipCsvName" style="margin-left:10px; color:green;"></span>
+      </div>
+
+      <div class="button-group">
+        <button onclick="scanIP()">Scan</button>
+        <button onclick="clearResults()">Clear Results</button>
+        <button onclick="loadHistory()">Show History</button>
+      </div>
+
+      <div id="overallLoading" class="progress-wrapper" style="display:none;">
+        <div class="progress-container">
+          <div class="circular-progress">
+            <svg class="progress-ring" width="120" height="120">
+              <circle class="progress-ring__circle"
+                      stroke="#4caf50" stroke-width="8"
+                      fill="transparent" r="52" cx="60" cy="60" />
+            </svg>
+            <div class="progress-text">0%</div>
+          </div>
+          <div class="spinner"></div>
+          <div id="overallProgressText" class="progress-text-label"></div>
+        </div>
+      </div>
+
+      <div id="sortControls" class="sort-controls" style="display:none;">
+        <label for="sortOption">Sort by:</label>
+        <select id="sortOption" onchange="loadHistory(true)">
+          <option value="date_desc">Date (newest first)</option>
+          <option value="date_asc">Date (oldest first)</option>
+          <option value="risk_desc">Risk (high to low)</option>
+          <option value="risk_asc">Risk (low to high)</option>
+        </select>
+      </div>
+
+      <div id="result" class="results-container"></div>
+    </div>
+
+    <!-- URL Scan Tab -->
+    <div id="urlScan" class="tab-content" style="display:none;">
+      <h2>🔗 URL Threat Detection</h2>
+
+      <!-- single-text or CSV -->
+      <input type="text" id="urlInput" placeholder="Enter a URL or domain">
+      <div id="urlCsvWrapper" style="margin-top:10px;">
+        <button type="button" onclick="triggerURLFile()">📂 Upload CSV</button>
+        <input type="file" id="urlCsv" accept=".csv" style="display:none;">
+        <span id="urlCsvName" style="margin-left:10px; color:green;"></span>
+      </div>
+
+      <div class="button-group">
+        <button onclick="scanURL()">Scan</button>
+        <button onclick="clearURLResults()">Clear Results</button>
+        <button onclick="loadURLHistory()">Show History</button>
+      </div>
+
+      <div id="urlSortControls" class="sort-controls" style="display:none;">
+        <label for="urlSortOption">Sort by:</label>
+        <select id="urlSortOption" onchange="loadURLHistory(true)">
+          <option value="date_desc">Date (newest first)</option>
+          <option value="date_asc">Date (oldest first)</option>
+          <option value="risk_desc">Risk (high to low)</option>
+          <option value="risk_asc">Risk (low to high)</option>
+        </select>
+      </div>
+
+      <div id="urlResult" class="results-container"></div>
+      <div id="urlHistoryResult" class="results-container"></div>
+    </div>
+
+    <!-- Image Scan Tab -->
+    <div id="imageScan" class="tab-content" style="display:none;">
+      <h2>🖼️ Image Threat Detection</h2>
+      <input type="file" id="imageInput" multiple accept="image/png, image/jpeg">
+      <small id="limit-msg" style="color:red;"></small>
+      <div class="button-group">
+        <button onclick="scanImage()">Scan Image</button>
+        <button onclick="clearImageResult()">Clear</button>
+      </div>
+      <div id="imageResult" class="results-container"></div>
+    </div>
+
+        <!-- Password Generator Tab -->
+    <div id="pwGen" class="tab-content" style="display:none;">
+      <h2>🔑 Password Generator</h2>
+      <div class="pwgen-controls" style="margin-bottom:1em;">
+        <label>Length: <span id="pwLengthValue">16</span></label><br>
+        <input type="range" id="pwLength" min="8" max="30" value="16">
+      </div>
+      <div class="pwgen-options" style="margin-bottom:1em;">
+        <label><input type="checkbox" id="pwLower" checked> Lowercase</label>
+        <label><input type="checkbox" id="pwUpper" checked> Uppercase</label>
+        <label><input type="checkbox" id="pwNumbers" checked> Numbers</label>
+        <label><input type="checkbox" id="pwSymbols"> Symbols</label>
+      </div>
+      <div class="pwgen-result">
+        <input type="text" id="pwOutput" readonly style="width:70%; margin-right:1em;">
+      </div>
+    </div>
+
+    <!-- Integrity Checker Tab (UI only for now) -->
+    <div id="integrityCheck" class="tab-content" style="display:none;">
+      <h2>🛡️ Integrity Checker</h2>
+      <p>Upload your file below to run an integrity check:</p>
+      <input type="file" id="integrityFile" />
+      <button id="runIntegrityBtn" class="button" disabled>Run Check</button>
+      <div id="integrityResult" style="margin-top:1em;"></div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+  <script defer src="{{ url_for('static', filename='js/app.js') }}"></script>
+{% endblock %}

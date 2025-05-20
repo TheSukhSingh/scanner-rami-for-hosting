@@ -1,0 +1,321 @@
+
+        .error-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 70vh;
+            text-align: center;
+            padding: var(--space-xl);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .error-code {
+            font-size: 8rem;
+            font-weight: 700;
+            margin-bottom: var(--space-lg);
+            position: relative;
+            color: transparent;
+            background: var(--gradient-blue);
+            -webkit-background-clip: text;
+            background-clip: text;
+            z-index: 2;
+        }
+        
+        .error-code::after {
+            content: '500';
+            position: absolute;
+            left: 0.1em;
+            top: 0.1em;
+            color: rgba(0, 200, 255, 0.1);
+            z-index: -1;
+        }
+        
+        .error-title {
+            font-size: 2rem;
+            margin-bottom: var(--space-lg);
+            color: var(--text);
+        }
+        
+        .error-message {
+            max-width: 600px;
+            margin-bottom: var(--space-xl);
+            color: var(--text-muted);
+        }
+        
+        .error-actions {
+            display: flex;
+            gap: var(--space-md);
+            margin-bottom: var(--space-xxl);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .error-button {
+            display: inline-flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-md) var(--space-xl);
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+        }
+        
+        .home-btn {
+            background: var(--gradient-blue);
+            color: white;
+        }
+        
+        .home-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+        
+        .refresh-btn {
+            background-color: rgba(20, 32, 62, 0.5);
+            border: 1px solid var(--border);
+            color: var(--text);
+        }
+        
+        .refresh-btn:hover {
+            background-color: rgba(0, 200, 255, 0.1);
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .error-visual {
+            margin-bottom: var(--space-xl);
+            position: relative;
+            width: 160px;
+            height: 160px;
+        }
+        
+        .server-icon {
+            font-size: 6rem;
+            color: var(--text-muted);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .gear-animation {
+            position: absolute;
+            top: 0;
+            right: 0;
+            font-size: 3rem;
+            color: var(--primary);
+            animation: spin 10s linear infinite;
+        }
+        
+        .error-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(231, 76, 60, 0.1) 0%, transparent 70%);
+            animation: pulse 3s infinite;
+            z-index: 1;
+        }
+        
+        .error-code-binary {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.05;
+            font-family: monospace;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .binary-text {
+            position: absolute;
+            color: var(--primary);
+            font-size: 1rem;
+            user-select: none;
+        }
+        
+        .terminal {
+            background-color: rgba(20, 32, 62, 0.3);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            text-align: left;
+            font-family: monospace;
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: var(--space-xl);
+        }
+        
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-sm);
+            padding-bottom: var(--space-xs);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .terminal-title {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        
+        .terminal-controls {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .terminal-circle {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .circle-red {
+            background-color: #e74c3c;
+        }
+        
+        .circle-yellow {
+            background-color: #f1c40f;
+        }
+        
+        .circle-green {
+            background-color: #2ecc71;
+        }
+        
+        .terminal-content {
+            color: var(--text);
+            line-height: 1.5;
+        }
+        
+        .terminal-line {
+            margin-bottom: var(--space-xs);
+        }
+        
+        .terminal-prompt {
+            color: #2ecc71;
+            margin-right: var(--space-xs);
+        }
+        
+        .terminal-command {
+            color: var(--text);
+        }
+        
+        .terminal-error {
+            color: #e74c3c;
+        }
+        
+        .terminal-info {
+            color: #3498db;
+        }
+        
+        .error-footer {
+            color: var(--text-muted);
+            margin-top: var(--space-xl);
+            font-size: 0.9rem;
+        }
+        
+        .help-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: var(--space-xl);
+            background: rgba(20, 32, 62, 0.3);
+            padding: var(--space-lg);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            max-width: 600px;
+        }
+        
+        .help-section h3 {
+            margin-bottom: var(--space-md);
+            color: var(--primary);
+        }
+        
+        .help-section p {
+            margin-bottom: var(--space-md);
+            color: var(--text-muted);
+        }
+        
+        .contact-options {
+            display: flex;
+            gap: var(--space-md);
+            flex-wrap: wrap;
+            justify-content: center;
+            width: 100%;
+        }
+        
+        .contact-option {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            padding: var(--space-sm) var(--space-lg);
+            background-color: rgba(20, 32, 62, 0.5);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            color: var(--text);
+            transition: all var(--transition-normal);
+        }
+        
+        .contact-option:hover {
+            background-color: rgba(0, 200, 255, 0.1);
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .contact-option i {
+            color: var(--primary);
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.5;
+            }
+        }
+        
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 6rem;
+            }
+            
+            .error-title {
+                font-size: 1.5rem;
+            }
+            
+            .error-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .error-button {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .contact-options {
+                flex-direction: column;
+            }
+            
+            .contact-option {
+                width: 100%;
+                justify-content: center;
+            }
+        }

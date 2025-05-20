@@ -1,0 +1,98 @@
+{% extends 'main.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block head_extra %}
+  <!-- three.js for the animated hero background -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<div id="canvas-container"></div>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Threat Intelligence System</h1>
+    <p class="hero-text">
+      A comprehensive and real-time cyber threat detection suite designed to scan IP addresses,
+      analyze suspicious URLs, inspect steganographic images, and validate file integrity.
+    </p>
+    <p class="project-info">
+      Built with precision and dedication as part of the TIS Graduation Project 2025.
+    </p>
+    <p class="acknowledgment">
+      With gratitude to Al-Balqa' Applied University for support and inspiration.
+    </p>
+    <a href="{{ url_for('scanner_view') }}" class="btn cta-btn">Start Scan</a>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="stat-card">
+    <h2 class="stat-number">100,000</h2>
+    <p class="stat-label">Threats Scanned</p>
+  </div>
+  <div class="stat-card">
+    <h2 class="stat-number">46,000</h2>
+    <p class="stat-label">Files Verified</p>
+  </div>
+  <div class="stat-card">
+    <h2 class="stat-number">1,287</h2>
+    <p class="stat-label">Live Detections Today</p>
+  </div>
+</section>
+
+<section class="features-overview">
+  <div class="feature-card">
+    <i class="fas fa-globe feature-icon"></i>
+    <h3>IP Scan</h3>
+    <p>Detect suspicious IPs using global threat feeds and geo-tracing.</p>
+  </div>
+  <div class="feature-card">
+    <i class="fas fa-link feature-icon"></i>
+    <h3>URL Scanner</h3>
+    <p>Analyze domains for phishing, malware, and reputation scoring.</p>
+  </div>
+  <div class="feature-card">
+    <i class="fas fa-image feature-icon"></i>
+    <h3>Image Analyzer</h3>
+    <p>Scan images for steganography and hidden payloads.</p>
+  </div>
+  <div class="feature-card">
+    <i class="fas fa-shield-alt feature-icon"></i>
+    <h3>Integrity Checker</h3>
+    <p>Validate file hashes to detect tampering or corruption.</p>
+  </div>
+</section>
+
+<section id="faq" class="faq">
+  <h2>Frequently Asked Questions</h2>
+  <div class="accordion">
+    {% for q,a in [
+      ("What threats can be detected?",
+        "Our system detects malicious IPs, phishing URLs, malware, steganography, and file tampering."),
+      ("Does the system store user data?",
+        "We only store scan results temporarily; no personal data is retained."),
+      ("Can I use it offline?",
+        "Some features work offline, but internet access is recommended for live intelligence."),
+      ("Which formats are supported?",
+        "We support .exe, .pdf, .docx, .zip, .jpg, .png and more.")]
+    %}
+    <div class="accordion-item">
+      <div class="accordion-header">
+        <h3>{{ q }}</h3>
+        <span class="accordion-icon">▼</span>
+      </div>
+      <div class="accordion-content">
+        <p>{{ a }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/network.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+{% endblock %}
